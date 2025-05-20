@@ -1,0 +1,189 @@
+/* mentions_legales.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+
+/* → structure générale */
+html, body {
+  height: 100%;
+  margin: 0;
+  background: #020D42;
+  color: white;
+  font-family: "Inter", sans-serif;
+}
+
+header {
+  width: 100%;
+}
+
+.header-left,
+.header-right {
+    flex: 1;
+    margin: 10px;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    text-align: center;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-button img {
+  width: 30px;
+  height: 30px;
+}
+
+/* → zone principale */
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.mentions-legales {
+  background: #0B1D72;
+  border-radius: 20px;
+  padding: 2rem;
+}
+
+/* → titrage */
+.mentions-legales h1 {
+  font-family: "Inter", sans-serif;
+  color: #54D5D0;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.mentions-legales section + section {
+  margin-top: 2rem;
+}
+
+.mentions-legales h2 {
+  font-size: 1.5rem;
+  color: #54D5D0;
+  margin-bottom: 0.75rem;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.mentions-legales h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 1.2rem;
+  background: #3ACCE1;
+  border-radius: 2px;
+}
+
+/* → texte & listes */
+.mentions-legales p,
+.mentions-legales li {
+  font-size: 1rem;
+  line-height: 2.0;
+  color: #E6F4F3;
+}
+
+.mentions-legales ul {
+  list-style: disc;
+  margin: 0 0 1rem 1.5rem;
+  padding: 0;
+}
+
+.mentions-legales li + li {
+  margin-top: 0.5rem;
+}
+
+/* → liens */
+.mentions-legales a {
+  color: #3ACCE1;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.mentions-legales a:hover {
+  color: #54D5D0;
+  text-decoration: underline;
+}
+
+/* → responsive */
+@media (max-width: 600px) {
+  .header-center h1 {
+    font-size: 2.5rem;
+  }
+  .mentions-legales h1 {
+    font-size: 2rem;
+  }
+  .mentions-legales h2 {
+    font-size: 1.25rem;
+  }
+}
+
+
+.site-footer {
+    background: transparent; /* ou une couleur de fond si besoin */
+    padding: 1.5rem 0;
+}
+  
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+  
+/* barre de liens */
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;             /* espacement horizontal */
+    flex-wrap: wrap;       /* retour à la ligne si nécessaire */
+    justify-content: center;
+    margin: 0;             /* on gère l’espacement via gap */
+    padding: 0;
+    list-style: none;
+}
+  
+/* liens du footer */
+.site-footer .footer-nav a {
+    color: #54D5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+  
+.site-footer .footer-nav a:hover {
+    color: #3ACCE1;
+    text-decoration: underline;
+}
+  
+/* ligne copyright */
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    text-align: center;
+}

@@ -1,0 +1,296 @@
+{% extends "base_prompt.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    .quiz-end-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        min-height: calc(100vh - 180px);
+    }
+
+    .quiz-end-container {
+        font-family: "Inter", sans-serif;
+        background-color: #0B1D72;
+        padding: 40px 60px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        animation: fadeInUp 0.6s ease-out;
+    }
+    
+    /* Styles pour la partie quiz */
+    .quiz-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    
+    .quiz-header h1 {
+        font-size: 24px;
+        margin: 0;
+        color: white;
+        flex-grow: 1;
+        text-align: center;
+    }
+    
+    .back-link {
+        color: #54D5D0;
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 15px;
+    }
+    
+    .question-text {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px 20px;
+        border-radius: 15px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+    
+    .feedback {
+        background: rgba(84, 213, 208, 0.1);
+        padding: 15px 20px;
+        border-radius: 15px;
+        margin-top: 15px;
+        border-left: 4px solid #54D5D0;
+    }
+    
+    .suivant-btn {
+        background: #54D5D0;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .quiz-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+    
+    .add-button, .relancer-button {
+        background: #54D5D0;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-weight: bold;
+        text-decoration: none;
+        display: inline-block;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .add-button:hover, .relancer-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .message-wrapper {
+        width: 100%;
+    }
+    
+    /* Styles spécifiques pour la page de fin de quiz */
+    .congrats-title {
+        font-size: 28px;
+        color: #54D5D0;
+        margin-bottom: 20px;
+        animation: pulse 1.5s infinite;
+        text-align: center;
+        width: 100%;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 0.9; }
+        50% { opacity: 1; }
+        100% { opacity: 0.9; }
+    }
+    
+    .quiz-finished-text {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .quiz-score {
+        font-size: 24px;
+        color: #54D5D0;
+        background: rgba(84, 213, 208, 0.1);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px 0;
+        display: inline-block;
+    }
+    
+    .mini-separator {
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        margin: 25px 0;
+        width: 100%;
+    }
+    
+    .feedback-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .feedback-title {
+        color: #54D5D0;
+        margin-bottom: 15px;
+        font-size: 20px;
+    }
+    
+    .feedback-content {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        padding: 15px;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    
+    .feedback-content pre {
+        white-space: pre-wrap;
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        color: #f0f0f0;
+        line-height: 1.5;
+    }
+</style>
+{% endblock %}
+
+{% block header-left %}
+    {% if 'administrateurs' in group_names %}
+        <button class="icon-button">
+            <a href="{% url 'menu' %}">
+                <img src="{% static 'return.png' %}" alt="retour" />
+            </a>
+        </button>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    {% if quiz_termine %}
+        <div class="quiz-header">
+            <h1>{{ quiz_actuel.titre }}</h1>
+        </div>
+
+        <div class="comment" id="prompt-comment">
+            <h2 class="congrats-title">🎉 Félicitations !</h2>
+
+            <p class="quiz-finished-text">Tu as terminé le quiz <strong>"{{ quiz_actuel.titre }}"</strong></p>
+            <h3 class="quiz-score">Score : {{ score }} / {{ total }}</h3>
+
+            <div class="quiz-buttons">
+                <!-- Bouton retour -->
+                <a href="{% url 'prompt' %}" class="add-button">← Retour à l'accueil</a>
+
+                <!-- Bouton refaire exactement le même quiz -->
+                <a href="{% url 'lancer_quiz' quiz_actuel.id %}?restart=1" class="relancer-button">
+                    🔄 Refaire ce quiz
+                </a>
+
+                <!-- Bouton recréer un quiz avec questions plus dures -->
+                <form method="post" action="{% url 'regenerer_quiz_plus_dur' %}?redirect_preview=1" style="margin-top: 10px;">
+                    {% csrf_token %}
+                    <input type="hidden" name="theme" value="{{ quiz_actuel.titre|cut:"Quiz sur " }}">
+                    <button type="submit" class="relancer-button" style="background-color: #ff5722; color: white;">
+                        🔥 Refaire avec des questions plus dures
+                    </button>
+                </form>
+            </div>
+
+            {% if feedback_global %}
+            <!-- Séparateur -->
+            <div class="mini-separator"></div>
+
+            <div class="feedback-section">
+                <h3 class="feedback-title">💬 Feedback global</h3>
+                <div class="feedback-content">
+                    <pre>{{ feedback_global }}</pre>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% else %}
+        <!-- Affichage normal des questions -->
+        <div class="quiz-header">
+            <a href="{% url 'prompt' %}" class="back-link">← Quitter</a>
+            <h1>{{ quiz_actuel.titre }}</h1>
+        </div>
+        <div class="comment" id="prompt-comment">
+            <div id="chat-scroll" class="message-wrapper">
+                <h2>Question {{ numero }} sur {{ total }}</h2>
+                <div class="question-text">{{ question.questionQuiz }}</div>
+                {% if feedback %}
+                    <div class="feedback">{{ feedback }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="bottom">
+            <form method="post" style="display: flex; flex: 1; gap: 10px;">
+                {% csrf_token %}
+                {% if not afficher_feedback %}
+                    <input type="text" class="text-input" name="reponse" placeholder="Écrivez votre réponse ici" required>
+                    <button type="submit" class="send-btn" id="send-prompt">
+                        <img src="{% static 'send.png' %}" alt="Envoyer">
+                    </button>
+                {% else %}
+                    <a href="{% url 'quiz_suivant' quiz_actuel.id %}" class="suivant-btn" id="suivant-btn">
+                        ⏭️ Question suivante
+                    </a>
+                {% endif %}
+            </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/prompt.js' %}"></script>
+<script>
+    // Activer le spinner lorsque l'utilisateur soumet sa réponse
+    document.addEventListener('DOMContentLoaded', () => {
+        // Pour le formulaire de réponse
+        const form = document.querySelector('.bottom form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                const overlay = document.getElementById('loading-overlay');
+                const sendBtn = document.getElementById('send-prompt');
+                if (overlay) overlay.style.display = 'flex';
+                if (sendBtn) sendBtn.disabled = true;
+            });
+        }
+        
+        // Pour le bouton "Question suivante"
+        const suivantBtn = document.getElementById('suivant-btn');
+        if (suivantBtn) {
+            suivantBtn.addEventListener('click', function(e) {
+                const overlay = document.getElementById('loading-overlay');
+                if (overlay) overlay.style.display = 'flex';
+                // Le spinner restera affiché jusqu'à ce que la page suivante soit chargée
+                // Si c'est la dernière question, cela affichera les résultats du quiz
+            });
+        }
+    });
+</script>
+{% endblock %}

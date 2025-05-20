@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<style>
+    .container {
+        overflow-y: auto !important;
+        height: 60vh !important; /* Réduit la hauteur pour laisser plus d'espace au footer */
+        max-height: 60vh !important;
+    }
+</style>
+{% endblock %}
+
+{% block header-left %}
+    <button class="icon-button">
+        {% if request.user.groups.all.0.name == 'administrateurs' %}
+            <a href="{% url 'menu' %}">
+                <img src="{% static 'return.png' %}" alt="Retour au menu admin" />
+            </a>
+        {% else %}
+            <a href="{% url 'prompt' %}">
+                <img src="{% static 'return.png' %}" alt="Retour à la page prompt" />
+            </a>
+        {% endif %}
+    </button>
+{% endblock %}
+
+{% block container %}
+<main class="container">
+    <article class="mentions-legales">
+        <h1>Conditions Générales d’Utilisation (CGU)</h1>
+    
+        <section>
+            <h2>1. Objet</h2>
+            <p>Les présentes Conditions Générales d’Utilisation (ci‐après « CGU ») 
+                ont pour objet de définir les modalités d’accès et d’utilisation 
+                du site web ASADI (ci‐après « le Site »).
+            </p>
+        </section>
+    
+        <section>
+            <h2>2. Éditeur et hébergement</h2>
+            <ul>
+                <li><strong>Éditeur</strong> : [Votre raison sociale], [forme juridique], capital [€], sis à [adresse]. </li>
+                <li><strong>Hébergeur</strong> : [Nom hébergeur], [adresse hébergeur], tel : [téléphone]. </li>
+            </ul>
+        </section>
+    
+        <section>
+            <h2>3. Accès au Site</h2>
+            <p>Le Site est accessible gratuitement à tout Utilisateur disposant d’un accès à Internet.
+                <br>
+                L’éditeur se réserve le droit de suspendre, interrompre ou de limiter l’accès à 
+                tout ou partie du Site, à tout moment et sans préavis, notamment pour des opérations de maintenance.
+            </p>
+        </section>
+    
+        <section>
+            <h2>4. Propriété intellectuelle</h2>
+            <p>Tous les contenus publiés sur le Site (textes, photos, logos, icônes, sons, etc.) sont la propriété 
+                exclusive de l’éditeur ou de ses partenaires. Toute reproduction, représentation, adaptation ou 
+                traduction sans autorisation écrite préalable est interdite.</p>
+        </section>
+    
+        <section>
+            <h2>Propriété intellectuelle</h2>
+            <p>
+              Tous les contenus (textes, graphismes, images, logos, vidéos, icônes, sons, etc.) du site sont la 
+              propriété exclusive de l'UFR de Mathématiques et Informatique, Université Paris Cité ou de ses partenaires, 
+              sauf mentions contraires.
+              Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents 
+              contenus est strictement interdite sans l’accord exprès par écrit des équipes de l'UFR.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Responsabilité</h2>
+            <p>
+                L’éditeur s’efforce d’assurer au mieux de ses possibilités l’exactitude des contenus du Site, mais 
+                n’est tenu à aucune obligation de résultat. L’éditeur ne peut être tenue responsable des dommages 
+                résultant d’une intrusion frauduleuse d’un tiers ayant entraîné une modification des contenus.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Données personnelles</h2>
+            <p>
+                Pour les mentions légales détaillées, voir la page <a href="{% url 'mentions_legales' %}">Mentions légales</a>.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Modifications des CGU</h2>
+            <p>
+                L’éditeur se réserve le droit de modifier à tout moment les présentes CGU. Les nouvelles CGU
+                seront applicables dès leur mise en ligne.
+            </p>
+        </section>
+    </article>
+</main>
+{% endblock %}

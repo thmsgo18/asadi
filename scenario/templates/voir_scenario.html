@@ -1,0 +1,61 @@
+{% extends "base_scenario.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+<title>Scénario {{ scenario.titre }} - ASADI</title>
+{% endblock %}
+{% block content %}
+<h2>Scenario : {{ scenario.titre }}</h2>
+<div style="display: flex; justify-content: flex-end; gap: 10px; margin: 10px 30px 20px 0;">
+    <a href="{% url 'ajouter_question' scenario.id %}" class="add-button" style="display: inline-flex; align-items: center; height: 20px;">➕ Ajouter une question</a>
+    <a onclick="ouvrirScenario()" class="add-button" style="cursor: pointer; display: inline-flex; align-items: center; height: 20px;">Detail du Scenario</a>
+</div>
+<div class="table-container">
+    <table class="scenario-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Réponse</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for qr in questions_reponses %}
+                <tr onclick="window.location='{% url 'detail_question' qr.id %}'" style="cursor: pointer;">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ qr.question }}</td>
+                    <td>{{ qr.reponse }}</td>
+                    <td onclick="event.stopPropagation();">
+                        <div class="action-buttons-row">
+                            <form method="post" action="{% url 'supprimer_question' qr.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Supprimer</button>
+                            </form>
+                            {% if qr.id %}
+                                <button onclick="window.location.href='{% url 'modifier_question' qr.id %}'" class="lancer-quiz">Modifier</button>
+                            {% endif %}
+                        </div>
+                    </td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Pop-up Voir Scénario -->
+<div id="scenarioModal" class="modal-asadi">
+    <div class="modal-content-asadi">
+        <h2>📄 Détail du Scénario</h2>
+        <p><strong>Titre :</strong> {{ scenario.titre }}</p>
+        <p><strong>Contexte :</strong> {{ scenario.contexte }}</p>
+        <p><strong>Nombre de questions :</strong> {{ questions_reponses|length }}</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'js/scenario.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/scenario/scenario.css' %}?v=2">
+<!-- Script pour charger dynamiquement le thème Université -->
+<script>
+    (function() {
+        const theme = localStorage.getItem('theme') || 'default';
+        if (theme === 'universite') {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = "/static/css/general/universite.css";
+            link.id = 'theme-colors';
+            document.head.appendChild(link);
+        }
+    })();
+</script>
+{% endblock %}
+
+{% block header-left %}
+<button class="icon-button">
+    <a href="{% url 'menu' %}">
+        <img src="{% static 'return.png' %}" alt="retour" />
+    </a>
+</button>
+{% endblock %}
+
+{% block container %}
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <li class="message-error">{{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<div class="container">
+    <div class="menu">
+        <div class="section section5">
+            <div class="scenario-header">
+                <div class="text">
+                    <h2>Scénario:</h2>
+                </div>
+                <a href="{% url 'scenario' %}" class="add-scenario-btn">+ Créer un scénario</a>
+            </div>
+            <form method="get" class="search-bar">
+                <input type="text" name="q" placeholder="Rechercher un scenario..." value="{{ query }}">
+                <button type="submit" class="submit-button">Rechercher</button>
+            </form>
+            <ul class="menu-list">
+                {% for sc in scenarios %}
+                    <li class="file-item {% if current_scenario and sc.id == current_scenario.id %}active{% endif %}">
+                        <div class="file-row">
+                            <div class="file-name-wrapper">
+                                <a href="{% url 'voir_scenario' sc.id %}" class="scenario-text">
+                                    {{ sc.titre }}
+                                </a>
+                            </div>
+                            <div class="file-button-wrapper">
+                                <button onclick="window.location.href='{% url 'modifier_scenario' sc.id %}'" class="lancer-quiz">Modifier</button>
+                                <form method="post" action="{% url 'supprimer_scenario' sc.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-button">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>Aucun scénario pour le moment</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'js/theme.js' %}"></script>
+<!-- Script pour champs dynamiques d'édition -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputs = document.querySelectorAll(".create-form input, .create-form textarea");
+
+        inputs.forEach((input) => {
+            input.addEventListener("input", function () {
+                if (input.value.trim() !== "") {
+                    input.style.backgroundColor = "white";
+                    input.style.color = "black";
+                } else {
+                    input.style.backgroundColor = "#3ACCE1";
+                    input.style.color = "black";
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

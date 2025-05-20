@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz plus difficile - ASADI</title>
+    <link rel="stylesheet" href="{% static 'css/quiz/preview.css' %}">
+</head>
+<body>
+
+    <header>
+        <div class="header-wrapper">
+            <div class="header-left">
+                {% if 'administrateurs' in group_names %}
+                    <button class="icon-button">
+                        <a href="{% url 'menu' %}">
+                            <img src="{% static 'return.png' %}" alt="Retour" />
+                        </a>
+                    </button>
+                {% endif %}
+            </div>
+            <div class="header-center">
+                <h1>ASADI</h1>
+            </div>
+            <div class="header-right"></div>
+        </div>
+    </header>
+
+<div class="quiz-launch-wrapper">
+    <a href="{% url 'annuler_creation_quiz' quiz.id %}" class="back-link">← Retour</a>
+    <h1>Questions générées sur "{{ quiz.titre|cut:'Quiz difficile sur ' }}"</h1>
+
+    <div class="table-container">
+        <table class="scenario-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for q in questions %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ q.questionQuiz }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <form method="post" style="margin-top: 20px; display: flex; justify-content: center; gap: 15px;">
+        {% csrf_token %} 
+        <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+        <button type="submit" name="action" value="regenerer" class="suivant-btn">🔄 Regénérer</button>
+        <button type="submit" name="action" value="lancer" class="suivant-btn">✅ Lancer le quiz</button>
+    </form>
+</div>
+
+
+<!-- À placer juste avant la fermeture de </body> dans base.html -->
+<footer class="site-footer">
+    <div class="container">
+      <nav class="footer-nav">
+        <a href="{% url 'cgu' %}">CGU</a>
+        <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </nav>
+      <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<style>
+    /* Style pour la page Contact */
+    .container {
+        overflow-y: auto !important;
+        height: 60vh !important; /* Réduit la hauteur pour laisser plus d'espace au footer */
+        max-height: 60vh !important;
+    }
+
+</style>
+{% endblock %}
+
+{% block header-left %}
+    <button class="icon-button">
+        {% if request.user.groups.all.0.name == 'administrateurs' %}
+            <a href="{% url 'menu' %}">
+                <img src="{% static 'return.png' %}" alt="Retour au menu admin" />
+            </a>
+        {% else %}
+            <a href="{% url 'prompt' %}">
+                <img src="{% static 'return.png' %}" alt="Retour à la page prompt" />
+            </a>
+        {% endif %}
+    </button>
+{% endblock %}
+
+{% block container %}
+<main class="container">
+
+    <article class="mentions-legales">
+        <h1>Nous contacter</h1>
+        <section>
+            <h2>Contact de l'UFR de Mathématiques et Informatique</h2>
+            <ul>
+                <li><strong>Adresse de l'établissement<strong> : 45, rue des Saints-Pères, 75006 Paris</li>
+                <li><b>Téléphone</b> : 01.76.53.16.16</li>
+            </ul>
+            <h3>Vous pouvez contacter le service de la scolarité :</h3>
+            <h3>Par courriel :</h3>
+                
+            <ul>
+                <li><a href="licences@mi.parisdescartes.fr">licences@mi.parisdescartes.fr</a></li> 
+                <li><a href="masters@mi.parisdescartes.fr">masters@mi.parisdescartes.fr</a></li> 
+            </ul>
+
+            <h3>Par courrier :</h3>
+            <p>
+                Service de la scolarité
+                <br>UFR Mathématiques et Informatique
+                <br>45, rue des Saints-Pères
+                <br>75006 Paris
+            </p>
+        </section>
+
+        <section>
+            <h2>Contact des développeurs et encadrant</h2>
+            <h3>Encadrant</h3>
+            <ul>
+                <li>David JANISZEK : <a href="david.janiszek@u-paris.fr">david.janiszek@u-paris.fr</a></li>
+            </ul>
+
+            <h3>Développeurs (étudiants)</h3>
+            <ul>
+                <li>Ali TRAORE : <a href="ali.traore@etu.u-paris.fr">ali.traore@etu.u-paris.fr</a></li>
+                <li>Thomas GOUREMELEN : <a href="thomas.gourmelen@etu.u-paris.fr">thomas.gourmelen@etu.u-paris.fr</a></li>
+                <li>Abdel Malik DJAFFER : <a href="abdel-malik.djaffer@etu.u-paris.fr">abdel-malik.djaffer@etu.u-paris.fr</a></li>
+                <li>Valentin PONNOUSSAMY : <a href="valentin.ponnoussamy@etu.u-paris.fr">valentin.ponnoussamy@etu.u-paris.fr</a></li>
+            </ul>
+        </section>
+    
+    </article>
+</main>
+{% endblock %}

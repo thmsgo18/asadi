@@ -1,0 +1,10 @@
+[
+  {
+    "question": "Qu’est-ce qu’une boucle for en Python ?",
+    "bonneReponse": "Une boucle qui parcourt un itérable."
+  },
+  {
+    "question": "Comment définit-on une fonction en Python ?",
+    "bonneReponse": "Avec le mot-clé def."
+  }
+]

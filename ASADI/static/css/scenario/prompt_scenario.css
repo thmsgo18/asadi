@@ -1,0 +1,655 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+}
+header {
+    width: 100%;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.header-left,
+.header-right {
+    flex: 1;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    text-align: center;
+}
+
+header button {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button img {
+    width: 30px;
+    height: 30px;
+}
+body{
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+}
+
+.container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: 85vh;
+}
+
+.menu {
+    font-family: "Inter", sans-serif;
+    flex: 1;
+    max-width: 25%;
+    background: #0B1D72;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+
+.content {
+    font-family: "Inter", sans-serif;
+    flex: 2;
+    max-width: 75%;
+    background: #0B1D72;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; /* ✅ changer center → flex-start */
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px; /* ✅ ajouter un peu d’air */
+    overflow-y: auto; /* ✅ utile si ça déborde */
+}
+
+.menu .section {
+    width: 100%;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 5px;
+    border-radius: 20px;
+    h4, h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.section1 {flex: 1; text-align: center}
+.section2, .section3 {flex: 2}
+.section4 {flex: 5}
+.section5 {
+    flex:10;
+
+}
+.text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.text button {
+    padding: 8px 16px;
+    border: none;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.menu-list {
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+    list-style-type: none;
+}
+
+.menu-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+}
+
+.content .comment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    opacity: 0.6;
+    border: 10px;
+    margin-bottom: 20px; /* ✅ Ajoute de l’espace */
+}
+.content .bottom{
+    width: 98%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    margin-top: auto; /* ✅ Force la div à descendre */
+}
+.text-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.filter-btn, .send-btn {
+    background: #54D5D0;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.filter-btn img, .send-btn img {
+    width: 100%;
+    height: auto;
+}
+.table-container {
+    width: 90%;
+    max-width: 95%;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: left;
+    border-right: 1px solid white;
+    background-color: #007bff;
+}
+
+th, td {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    color: white;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.container .utilisateur {
+    flex: 1;
+    display: flex;
+    border-radius: 25px;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: #0B1D72;
+}
+/* La fenêtre modale (fond) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Fond noir semi-transparent */
+}
+
+/* Contenu de la modal */
+.modal-content {
+  background-color: #686868;
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px; /* Ajustez selon vos besoins */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    text-align: center;
+
+    color: black;
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+
+.modal-content label {
+    display: flex;
+    align-items: center;
+    color : black;
+    margin-bottom: 10px;
+  font-size: 18px;
+
+}
+
+.close {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+}
+
+.sel{
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.icon-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Redimensionner l'icône pour qu'elle ne soit pas trop grande */
+.icon-text img {
+    width: 75px;
+    height: auto;
+}
+
+/* Style pour le texte sous l'icône */
+.icon-text p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}
+
+.drop-zone {
+    width: 100%;
+    max-width: 100%; /* ✅ plus de contrainte fixe */
+    padding: 30px;
+    border: 2px dashed #aaa;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.05); /* petit fond pour mieux voir */
+}
+
+.drop-zone.dragover {
+    background-color: #f5f5f5;
+    border-color: #333;
+}
+
+.file-list {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.submit-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.upload-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-bar {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.search-bar input[type="text"] {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    box-sizing: border-box;
+}
+.file-item {
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    color: white;
+}
+
+.file-row {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.file-name-wrapper {
+    flex: 7;
+    overflow: hidden;
+}
+
+.file-button-wrapper {
+    flex: 3;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.file-name {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.file-name:hover {
+    text-decoration: underline;
+}
+
+.delete-button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button {
+    background-color: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.delete-button:hover {
+    color: darkred;
+}
+
+
+.create-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 300px;
+    margin: 80px auto;
+    font-family: "Inter", sans-serif;
+    background: transparent;
+}
+
+.create-form .form-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.create-form input,
+.create-form textarea {
+    background-color: #3ACCE1;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    width: 100%;
+    color: #000;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ✅ Quand on tape → fond blanc */
+.create-form input:not(:placeholder-shown),
+.create-form textarea:not(:placeholder-shown) {
+    background-color: white;
+    color: black;
+}
+
+/* ✅ Focus visuel */
+.create-form input:focus,
+.create-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px  #3ACCE1;
+    background-color: white;
+    color: black;
+}
+
+/* ✅ Placeholder centré et doux */
+.create-form input::placeholder,
+.create-form textarea::placeholder {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
+    font-weight: 500;
+}
+
+/* ✅ Bouton */
+.create-form button[type="submit"] {
+    background-color: #3ACCE1;
+    color: #000;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.create-form button[type="submit"]:hover {
+    background-color: #eeeeee;
+}
+
+/* ✅ Supprime le fond jaune au clic/autofill */
+input:-webkit-autofill,
+textarea:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: black !important;
+    transition: background-color 9999s ease-out, color 9999s ease-out;
+}
+
+.scenario-text {
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+}
+
+/* Optionnel : effet au survol */
+.scenario-text:hover {
+    color:  #3ACCE1;
+    cursor: pointer;
+}
+
+.scenario-detail {
+    width: 80%;
+    max-width: 600px;
+    background: #0B1D72;
+    border-radius: 20px;
+    padding: 30px;
+    margin-top: 60px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: "Inter", sans-serif;
+    color: white;
+}
+
+.scenario-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color:  #3ACCE1;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.scenario-content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.scenario-content .label {
+    font-weight: bold;
+    color: #ffffff;
+    display: inline-block;
+    width: 100px;
+}
+
+.message.bot {
+    background-color: #303F9F;
+    color: white;
+    border-radius: 15px 15px 15px 0;
+    align-self: flex-start;     /* ✅ alignement à gauche */
+    margin-right: auto;         /* ✅ pousse vers la gauche */
+    margin-left: 10px;          /* ✅ petit décalage visuel */
+}
+
+.chat {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;  /* pour prendre toute la largeur de la zone de chat */
+}
+
+
+.site-footer {
+    background: transparent; /* ou une couleur de fond si besoin */
+    padding: 1.5rem 0;
+}
+  
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+  
+/* barre de liens */
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;             /* espacement horizontal */
+    flex-wrap: wrap;       /* retour à la ligne si nécessaire */
+    justify-content: center;
+    margin: 0;             /* on gère l’espacement via gap */
+    padding: 0;
+    list-style: none;
+}
+  
+/* liens du footer */
+.site-footer .footer-nav a {
+    color: #54D5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+  
+.site-footer .footer-nav a:hover {
+    color: #3ACCE1;
+    text-decoration: underline;
+}
+  
+/* ligne copyright */
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    text-align: center;
+}
+
+
+

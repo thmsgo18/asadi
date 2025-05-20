@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Création Quiz - ASADI</title>
+    <link rel="stylesheet" href="{% static 'css/quiz/creer_quiz.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <style>
+        /* Styles pour l'overlay de chargement */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Overlay de chargement -->
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    <header>
+        <div class="header-wrapper">
+            <div class="header-left">
+                {% if 'administrateurs' in group_names %}
+                    <button class="icon-button">
+                        <a href="{% url 'menu' %}">
+                            <img src="{% static 'return.png' %}" alt="Retour" />
+                        </a>
+                    </button>
+                {% endif %}
+            </div>
+            <div class="header-center">
+                <h1>ASADI</h1>
+            </div>
+            <div class="header-right"></div>
+        </div>
+    </header>
+
+   
+    <div class="quiz-launch-wrapper">
+        <a href="{% url 'annuler_creation_quiz' %}" class="back-link">← Retour</a>
+    
+        {% if not questions %}
+            <h1>Création de quiz</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="question-text">Quel thème souhaitez-vous pour votre quiz ?</div>
+                <input type="text" name="reponse" placeholder="Votre réponse..." required>
+                <input type="submit" value="Générer questions">
+            </form>
+        {% else %}
+            <h1>Questions générées sur "{{ theme }}"</h1>
+    
+            <div class="table-container">
+                <table class="scenario-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Question</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for q in questions %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ q.question }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    
+            <form method="post" style="margin-top: 20px; display: flex; justify-content: center; gap: 15px;" id="quiz-form">
+                {% csrf_token %}
+                <input type="hidden" name="action" id="action-input" value="">
+                <button type="button" onclick="submitForm('regenerer')" class="suivant-btn">🔄 Régénérer</button>
+                <button type="button" onclick="submitForm('valider')" class="suivant-btn">✅ Valider et créer le quiz</button>
+            </form>
+            
+            <script>
+                function submitForm(action) {
+                    document.getElementById('action-input').value = action;
+                    document.getElementById('loading-overlay').style.display = 'flex';
+                    document.getElementById('quiz-form').submit();
+                }
+            </script>
+        {% endif %}
+    </div>
+
+    <!-- Script pour le spinner -->
+    <script>
+        function showLoadingOverlay() {
+            const overlay = document.getElementById('loading-overlay');
+            if (overlay) overlay.style.display = 'flex';
+            
+            // Désactiver les boutons de soumission pour éviter les soumissions multiples
+            const submitButtons = document.querySelectorAll('input[type="submit"], button[type="submit"]');
+            submitButtons.forEach(button => {
+                button.disabled = true;
+            });
+            
+            return true;
+        }
+        
+        // Ajouter l'événement onsubmit aux formulaires
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', showLoadingOverlay);
+            });
+        });
+    </script>
+</body>
+</html>

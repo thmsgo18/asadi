@@ -1,0 +1,80 @@
+{% extends "base_scenario.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+<title>Scénario - ASADI</title>
+<style>
+    .loading-overlay {
+        display: none;
+        position: fixed;
+        inset: 0;                   /* top:0; left:0; right:0; bottom:0; */
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .loading-overlay .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+</div>
+
+<h2>Créer un scénario :</h2>
+
+{% if not contexte_genere %}
+    <form method="post" class="create-form" id="scenario-form">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.contexte_utilisateur }}
+        </div>
+        <button type="submit" name="action" value="generer" class="suivant-btn">Générer le scénario</button>
+    </form>
+    
+    <script>
+        document.getElementById('scenario-form').addEventListener('submit', function() {
+            document.getElementById('loading-overlay').style.display = 'flex';
+        });
+    </script>
+{% else %}
+    <div class="quiz-launch-wrapper" style="flex-direction: column; align-items: center; justify-content: center; height: 80%;">
+        <h2 style="color:#3ACCE1;">Titre : {{ titre_genere }}</h2>
+
+        <div style="
+            background: rgba(255, 255, 255, 0.07);
+            padding: 30px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            min-height: 250px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        ">
+            <p style="white-space: pre-wrap; text-align: center; font-size: 1.1rem;">{{ contexte_genere }}</p>
+        </div>
+
+        <form method="post" style="margin-top: 30px; display: flex; flex-direction: row; gap: 20px; justify-content: center;">
+            {% csrf_token %}
+            <button type="submit" name="action" value="valider" class="suivant-btn">✅ Valider et créer le scénario</button>
+            <button type="submit" name="action" value="regenerer" class="suivant-btn">🔄 Régénérer</button>
+        </form>
+    </div>
+{% endif %}
+{% endblock %}

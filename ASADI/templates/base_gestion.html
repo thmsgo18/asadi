@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+
+{% block container %}
+<div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+</div>
+
+<div class="container">
+    <div class="menu">
+        <div class="section section1 profile-card" onclick="afficherProfil()">
+            <div class="profile-info">
+                <img class="avatar-circle" src="{% url 'avatar_png' user.username %}" alt="Avatar {{ user.username }}" />
+                <span class="prenom"><strong>{{ user.prenom }} {{ user.nom }}</strong></span>
+                <span class="niveau"><strong>niv: {{ user.niveau }}</strong></span>
+            </div>
+        </div>
+
+        <div class="section section2">
+            <div class="text-quiz">
+                <h4>Quiz:</h4>
+                <div class="text">
+                    <button onclick="window.location.href='{% url 'creer_quiz' %}'">+Quiz</button>
+                </div>
+            </div>
+            <ul class="menu-list">
+                {% for q in quiz %}
+                <li class="file-item">
+                    <div class="file-row">
+                        <div class="file-name-wrapper">
+                            <a href="javascript:void(0);" onclick="ouvrirQuizInfos('{{ q.titre }}', '{{ q.date_creation|date:"d/m/Y H:i" }}', '{{ q.questions.count }}')" class="scenario-text" style="flex: 1;">
+                                {{ q.titre }}
+                            </a>
+                        </div>
+                        <div class="file-button-wrapper">
+                            <button onclick="window.location.href='{% url 'lancer_quiz' q.id %}'" class="lancer-quiz">Lancer</button>
+                            <form action="{% url 'supprimer_quiz' q.id %}" method="post" onsubmit="return confirm('Supprimer ce quiz ?')" style="margin: 0;">
+                                {% csrf_token %}
+                                <button type="submit" class="delete-button">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+                {% empty %}
+                    <li>Aucun quiz trouvé</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section section3">
+            <div class="text">
+                <h4>Scénario:</h4>
+            </div>
+            <ul class="menu-list">
+                {% for sc in scenarios %}
+                    <li class="file-item">
+                        <div class="file-row">
+                            <div class="file-name-wrapper">
+                                <a onclick="ouvrirScenario('{{ sc.titre }}', '{{ sc.contexte }}', '{{ sc.questions_reponses.count }}')" class="scenario-text" style="cursor: pointer;">
+                                    {{ sc.titre }}
+                                </a>
+                            </div>
+                            <div class="file-button-wrapper">
+                                <button onclick="window.location.href='{% url 'rediriger_scenario' sc.id %}'" class="lancer-quiz">Lancer</button>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>Aucun scénario trouvé</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="section section4">
+            <div class="text">
+                <h4>Historique :</h4>
+            </div>
+            <ul class="menu-list">
+                {% for p in prompts %}
+                    <li class="file-item {% if current_prompt and p.id == current_prompt.id %}active{% endif %}">
+                        <div class="file-row">
+                            <div class="file-name-wrapper">
+                                <a class="file-name" title="{{ p.title }}" href="{% url 'prompt' %}?prompt_id={{ p.id }}">
+                                    {{ p.title|truncatechars:30 }}
+                                </a>
+                                <small style="color: #ccc;">
+                                    {% if p.last_activity.date == today %}
+                                        {{ p.last_activity|time:"H:i" }}
+                                    {% else %}
+                                        {{ p.last_activity|date:"d/m" }}
+                                    {% endif %}
+                                </small>
+                            </div>
+                            <div class="file-button-wrapper">
+                                <form method="post" action="{% url 'prompt' %}?delete={{ p.id }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-button">Supprimer</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>Aucun historique</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    {% block content %}
+    {% endblock %}
+</div>
+
+<!-- Pop-ups -->
+<div id="quizModal" class="modal-asadi">
+    <div class="modal-content-asadi">
+        <span class="close-asadi" onclick="fermerQuiz()">&times;</span>
+        <h2 id="quiz-titre">Quiz sur ...</h2>
+        <div class="profil-infos">
+            <p><strong>Titre :</strong> <span id="quiz-titre-info"></span></p>
+            <p><strong>Date de création :</strong> <span id="quiz-date-info"></span></p>
+            <p><strong>Nombre de questions :</strong> <span id="quiz-nb-questions"></span></p>
+            <br>
+            <div id="quiz-message" class="profil-message"></div>
+        </div>
+    </div>
+</div>
+
+<div id="profilModal" class="modal-asadi">
+    <div class="modal-content-asadi">
+        <span class="close" onclick="fermerProfil()"></span>
+        <h2>Salut {{user.username}}</h2>
+        <div class="profil-infos">
+            <p><strong>Nom utilisateur :</strong> {{ user.username }}</p>
+            <p><strong>Nom :</strong> {{ user.nom }}</p>
+            <p><strong>Prénom :</strong> {{ user.prenom }}</p>
+            <p><strong>Email :</strong> {{ user.email }}</p>
+            <p><strong>Dernière connexion :</strong> {{ user.last_login }}</p>
+            <div class="progress-section">
+                <p><strong>Niveau : {{ user.niveau }}</strong></p>
+                <div class="progress-bar-wrapper" id="progress_wrapper">
+                    <div class="progress-bar" id="progress" style="width: {% widthratio user.niveau 20 100 %}%"></div>
+                </div>
+            </div>
+            <br>
+            <div id="profil-message" class="profil-message"></div>
+        </div>
+        <div id="passwordChangeSection" style="display: none; margin-top: 2rem;">
+            <form method="post" action="{% url 'changer_mot_de_passe' %}" class="password-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="old_password">🔑 Mot de passe actuel</label>
+                    <input type="password" name="old_password" id="old_password" placeholder="••••••••" required />
+                </div>
+                <div class="form-group">
+                    <label for="new_password1">🆕 Nouveau mot de passe</label>
+                    <input type="password" name="new_password1" id="new_password1" placeholder="••••••••" required />
+                </div>
+                <div class="form-group">
+                    <label for="new_password2">✅ Confirmer le mot de passe</label>
+                    <input type="password" name="new_password2" id="new_password2" placeholder="••••••••" required />
+                </div>
+                <div style="text-align: right;">
+                    <button type="submit" class="btn-asadi">✅ Valider</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <button onclick="changementPassword()" class="btn-asadi" style="margin-top: 1rem;">
+            🔒 Modifier le mot de passe
+        </button>
+        <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn-asadi danger">Déconnexion</button>
+        </form>
+    </div>
+</div>
+
+<div id="scenarioModal" class="modal-asadi">
+    <div class="modal-content-asadi">
+        <span class="close-asadi" onclick="fermerScenario()">&times;</span>
+        <h2>📄 Détail du Scénario</h2>
+        <p><strong>Titre :</strong> <span id="scenario-titre"></span></p>
+        <p><strong>Contexte :</strong> <span id="scenario-contexte"></span></p>
+        <p><strong>Nombre de questions :</strong> <span id="scenario-nb-questions"></span></p>
+    </div>
+</div>
+{% endblock %}

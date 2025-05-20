@@ -1,0 +1,95 @@
+{% extends "base_prompt.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+{% block header-left %}
+    {% if request.user.groups.all.0.name == 'administrateurs' %}
+    <button class="icon-button">
+        <a href="{% url 'menu' %}">
+            <img src="{% static 'return.png' %}" alt="Retour au menu admin" />
+        </a>
+    </button>
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="content">
+    <div class="new-prompt-btn">
+        <form method="post" action="{% url 'prompt' %}?new=true">
+            {% if questions %}
+                <input type="hidden" name="prompt_id" value="{{ questions.0.prompt.id }}">
+            {% endif %}
+            {% csrf_token %}
+            <button type="submit">
+                <img src="{% static 'prompt-noir.png' %}" alt="New prompt">
+            </button>
+        </form>
+    </div>
+    <div class="comment" id="prompt-comment">
+        <div id="chat-scroll" class="message-wrapper">
+            {% if questions %}
+                {% for question in questions %}
+                    <div class="message user-message">
+                        <p>{{ question.questionPrompt }}</p>
+                    </div>
+                    {% if question.reponse %}
+                        <div class="message bot-message">
+                            <p>{{ question.reponse.rep|safe }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <div class="message-empty">
+                    <p>Aucun prompt pour le moment.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="bottom">
+        <button class="filter-btn" type="button">
+            <img src="{% static 'filtre.png' %}" alt="Filtrer">
+        </button>
+        <form id="prompt-form" method="post" action="{% url 'prompt' %}?prompt_id={{ current_prompt.id }}{% if selected_workspace %}&workspace={{ selected_workspace }}{% endif %}" style="display: flex; flex: 1; gap: 10px;" onsubmit="showLoadingOverlay()">
+            {% csrf_token %}
+            <input type="text" class="text-input" name="prompt" id="user-input" placeholder="Écrivez votre prompt ici..." required>
+            <button type="submit" class="send-btn" id="send-prompt">
+                <img src="{% static 'send.png' %}" alt="Envoyer">
+            </button>
+        </form>
+    </div>
+</div>
+
+<!-- Modal pour sélectionner le workspace -->
+<div id="myModal" class="modal-asadi">
+    <div class="modal-content-asadi">
+        <span class="close">&times;</span>
+        <h2>Sélectionner un workspace</h2>
+        <form method="get" action="{% url 'prompt' %}">
+            {% if current_prompt %}
+            <input type="hidden" name="prompt_id" value="{{ current_prompt.id }}">
+            {% endif %}
+            <ul class="workspace-list">
+                <li>
+                    <label for="workspace-all">
+                        <input type="radio" id="workspace-all" name="workspace" value="" {% if not selected_workspace %}checked{% endif %}>
+                        Tous les workspaces
+                    </label>
+                </li>
+                {% for workspace in workspaces %}
+                <li>
+                    <label for="workspace-{{ workspace.id }}">
+                        <input type="radio" id="workspace-{{ workspace.id }}" name="workspace" value="{{ workspace.name }}" {% if selected_workspace == workspace.name %}checked{% endif %}>
+                        {{ workspace.name }}
+                    </label>
+                </li>
+                {% endfor %}
+            </ul>
+            <button type="submit" class="btn-asadi">Appliquer</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<script src="{% static 'js/prompt.js' %}"></script>
+{% endblock %}

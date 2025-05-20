@@ -1,0 +1,131 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scénario n°{{ scenario.id }} - Question n°{{ question.id }} - ASADI</title>
+    
+        <!-- CSS principal -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/scenario/scenario.css' %}?v=2">
+    
+        <!-- Script pour charger dynamiquement le thème Université -->
+        <script>
+            (function() {
+                const theme = localStorage.getItem('theme') || 'default';
+                if (theme === 'universite') {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = "/static/css/universite.css";
+                    link.id = 'theme-colors';
+                    document.head.appendChild(link);
+                }
+            })();
+        </script>
+    
+        <script src="{% static 'js/theme.js' %}"></script>
+    </head>
+<body>
+    <header>
+        <div class="header-wrapper">
+            <div class="header-left">
+                <button class="icon-button">
+                    <a href="{% url 'voir_scenario' scenario.id %}">
+                        <img src="{% static 'return.png' %}" alt="retour" />
+                    </a>
+                </button>
+            </div>
+            <div class="header-center">
+                <h1>ASADI</h1>
+            </div>
+            <div class="header-right"></div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="menu">
+
+            <div class="section section5">
+                <div class="scenario-header">
+                    <div class="text">
+                    <h2>Scénario:</h2>
+                </div>
+                     <a href="{% url 'scenario' %}" class="add-scenario-btn">+ Créer un scénario</a>
+                </div>
+                <form method="get" class="search-bar">
+                    <input type="text" name="q" placeholder="Rechercher un scenario..." value="{{ query }}">
+                    <button type="submit" class="submit-button">Rechercher</button>
+                </form>
+               <ul class="menu-list">
+                    {% for sc in scenarios %}
+                        <li class="file-item">
+                            <div class="file-row">
+                                <div class="file-name-wrapper">
+                                    <a href="{% url 'voir_scenario' sc.id %}" class="scenario-text">
+                                        {{ sc.titre }}
+                                    </a>
+                                </div>
+                            
+                                <div class= "file-button-wrapper">
+                                    <!-- NOUVEAU -->
+                                    <button onclick="window.location.href='{% url 'modifier_scenario' sc.id %}'" class="lancer-quiz">Modifier</button>
+                                    <form method="post" action="{% url 'supprimer_scenario' sc.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-button">Supprimer</button>
+                                    </form>
+                                </div> <!-- FIN NOUVEAU -->
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li>Aucun scénario pour le moment</li>
+                    {% endfor %}
+               </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="qa-block fade-in" style="
+                background-color: rgba(255, 255, 255, 0.05);
+                padding: 40px;
+                border-radius: 20px;
+                width: 90%;
+                max-width: 800px;
+                margin-top: 60px;
+                font-size: 1.2rem;
+                line-height: 1.7;
+                text-align: center;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                ">
+                <h2 style="color:#3ACCE1;">Question N° {{ position }} du scenario {{ scenario }}</h2>
+
+                <p><strong style="color: white;">Question :</strong><br>
+                {{ question.question }}</p>
+
+                <p><strong style="color: white;">Réponse :</strong><br>
+                {{ question.reponse }}</p>
+
+                <div style="margin-top: 30px; display: flex; justify-content: center; gap: 20px;">
+                    <button onclick="window.location.href='{% url 'modifier_question' question.id %}'" class="detail-question">Modifier</button>
+                    <form method="post" action="{% url 'supprimer_question' question.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="delete-button-menu">Supprimer</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- À placer juste avant la fermeture de </body> dans base.html -->
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="{% url 'cgu' %}">CGU</a>
+            <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+        <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

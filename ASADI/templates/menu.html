@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/general/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block header-left %}
+    <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn-asadi danger">Déconnexion</button>
+    </form>
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <a href="{% url 'liste_utilisateurs' %}" class="sel">
+        <div class="icon-text">
+            <img src="{% static 'users.png' %}" alt="Utilisateurs">
+            <p>Liste utilisateurs</p>
+        </div>
+    </a>
+    <a href="{% url 'documents' %}" class="sel">
+        <div class="icon-text">
+            <img src="{% static 'files.png' %}" alt="Fichiers">
+            <p>Fichiers</p>
+        </div>
+    </a>
+    <a href="{% url 'scenario_redirect' %}" class="sel">
+        <div class="icon-text">
+            <img src="{% static 'scenario.png' %}" alt="Scenarios">
+            <p>Scénarios</p>
+        </div>
+    </a>
+    <a href="{% url 'prompt' %}" class="sel">
+        <div class="icon-text">
+            <img src="{% static 'prompt.png' %}" alt="Prompt">
+            <p>Prompts</p>
+        </div>
+    </a>
+</div>
+{% endblock %}
+
+

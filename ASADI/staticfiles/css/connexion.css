@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+}
+
+
+h1 {
+    text-align: center;
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    padding: 0 0;
+}
+
+
+
+/* ====== MODIFICATION ICI ====== */
+body {
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+
+}
+
+.message {
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.message.error{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fa0505;
+}
+
+.message.success{
+     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #3afa05;
+}
+
+
+
+/* ======================================
+   PAGE DE CONNEXION
+   ====================================== */
+
+
+.login-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 300px;
+    margin: 100px auto;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group .icon {
+    position: absolute;
+    left: 10px;
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+    border: none;
+    border-radius: 1000px;
+    outline: none;
+    font-size: 1rem;
+    background-color: #3ACCE1;
+    color: #000000;
+
+}
+
+.btn-connexion,
+.btn-inscription {
+    width: 75%;
+    height: 50px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 1000px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0.2rem auto auto;
+}
+
+.btn-connexion {
+    background-color: #3ACCE1;
+    color: #000000;
+}
+
+.btn-inscription {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.forgot-password {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password a {
+    color: #0057b8; /* Bleu ASADI moderne */
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #003f88; /* Bleu plus foncé au survol */
+    text-decoration: underline;
+}
+
+.input-group input::placeholder {
+  color: black;
+  font-style: italic;
+}

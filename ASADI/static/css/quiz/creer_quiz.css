@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+
+body {
+    background-color: #020D42;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0; 
+}
+
+.quiz-launch-wrapper {
+    max-width: 900px;
+    width: 90%;
+    height: 75vh;
+    margin: 10px auto 0 auto; /* ← moins de marge en haut */
+    background-color: #0B1D72;
+    padding: 20px 40px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* ← aligner en haut */
+    align-items: center;
+    padding: 20px 40px 30px 40px; /* top, right, bottom, left */
+}
+
+
+.quiz-launch-wrapper h1 {
+    color: #3ACCE1;
+    font-size: 2.3rem;
+    text-align: center;
+    margin-bottom: 30px; /* ↓ réduire un peu pour éviter l'effet trou */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+input[type="text"] {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: none;
+    background: #3ACCE1;
+    color: black;
+    font-size: 1rem;
+    outline: none;
+    font-weight: 500;
+}
+
+input[type="submit"],
+button.suivant-btn {
+    background-color: #3ACCE1;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: fit-content;
+    align-self: center;
+    text-decoration: none;
+}
+
+input[type="submit"]:hover,
+button.suivant-btn:hover {
+    background-color: #2aa9c2;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    margin-left: 0; /* ← ici important */
+    align-self: flex-start; /* ← important : pour qu'il reste tout à gauche */
+    color: #3ACCE1;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 6px 14px;
+    border: 2px solid #3ACCE1;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background: #3ACCE1;
+    color: black;
+}
+
+.question-text {
+    background-color: rgba(255,255,255,0.05);
+    padding: 15px 20px;
+    border-radius: 15px;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.scenario-table {
+    border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center; /* CENTRER le texte pour être plus clean */
+    width: 100%;
+    max-width: 700px; /* ← tu peux monter à 750px par exemple */
+}
+
+
+.scenario-table thead {
+    background-color: #3ACCE1;
+    color: black;
+}
+
+.scenario-table th,
+.scenario-table td {
+    padding: 12px 16px;
+    font-size: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.scenario-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+}
+header {
+    width: 100%;
+}
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+.header-left,
+.header-right {
+    flex: 1;
+}
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    padding-top: 10px; /* ← tout petit pour l'écarter légèrement */
+    color: #54D5D0;
+    font-size: 10vh;
+    text-align: center;
+}
+header button {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.icon-button img {
+    width: 30px;
+    height: 30px;
+}
+body{
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+}
+.container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: 85vh;
+}
+.menu {
+    font-family: "Inter", sans-serif;
+    flex: 1;
+    max-width: 25%;
+    background: #0B1D72;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+}
+.content {
+    font-family: "Inter", sans-serif;
+    flex: 2;
+    max-width: 75%;
+    background: #0B1D72;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.menu .section {
+    width: 100%;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 5px;
+    border-radius: 20px;
+    h4, h3 {
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+}
+.section1 {flex: 1; text-align: center}
+.section2, .section3 {flex: 2}
+.section4 {flex: 5}
+.section5 {
+    flex:10;
+}
+.text{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.text-quiz {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+.text-quiz h4 {
+    margin: 0;
+}
+
+
+.text-quiz button {
+    padding: 8px 16px;
+    border: none;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding-right: 10px;
+}
+.text button {
+    padding: 8px 16px;
+    border: none;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.menu-list {
+    margin-top: 5px;
+    padding: 0;
+    list-style-type: none;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.menu-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+}
+.content .comment{
+    flex: 8;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.content .bottom{
+    flex: 0.5;
+    width: 98%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+.new-prompt-btn {
+    flex: 0.5;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 10px;
+}
+.new-prompt-btn form {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.new-prompt-btn button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  background: #54D5D0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.new-prompt-btn img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+}
+.text-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+}
+.filter-btn, .send-btn {
+    background: #54D5D0;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.filter-btn img, .send-btn img {
+    width: 100%;
+    height: auto;
+}
+.table-container {
+    margin-top: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1);
+}
+thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: left;
+    border-right: 1px solid white;
+    background-color: #007bff;
+}
+th, td {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    color: white;
+}
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+.container .utilisateur {
+    flex: 1;
+    display: flex;
+    border-radius: 25px;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: #0B1D72;
+}
+/* La fenêtre modale (fond) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6); /* Fond noir semi-transparent */
+}
+/* Contenu de la modal */
+.modal-content {
+  background-color: #686868;
+  margin: 15% auto;
+  padding: 30px;
+  border-radius: 8px;
+  width: 400px; /* Ajustez selon vos besoins */
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.modal-content h2 {
+    text-align: center;
+    color: black;
+  font-size: 24px;
+  margin-bottom: 50px;
+}
+.modal-content label {
+    display: flex;
+    align-items: center;
+    color : black;
+    margin-bottom: 10px;
+  font-size: 18px;
+}
+.close {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  cursor: pointer;
+}
+.close:hover,
+.close:focus {
+  color: black;
+}
+
+input::placeholder {
+    color: black; /* noir un peu transparent → gris */
+}
+
+
+
+.site-footer {
+    background: transparent; /* ou une couleur de fond si besoin */
+    padding: 1.5rem 0;
+}
+  
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+  
+/* barre de liens */
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;             /* espacement horizontal */
+    flex-wrap: wrap;       /* retour à la ligne si nécessaire */
+    justify-content: center;
+    margin: 0;             /* on gère l’espacement via gap */
+    padding: 0;
+    list-style: none;
+}
+  
+/* liens du footer */
+.site-footer .footer-nav a {
+    color: #54D5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+  
+.site-footer .footer-nav a:hover {
+    color: #3ACCE1;
+    text-decoration: underline;
+}
+  
+/* ligne copyright */
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    text-align: center;
+}

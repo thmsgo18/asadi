@@ -1,0 +1,189 @@
+{% load static %}
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Fichiers - ASADI</title>
+    
+        <!-- CSS de base -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+        <!-- Script pour charger dynamiquement le bon thème -->
+        <script>
+            (function() {
+                const theme = localStorage.getItem('theme') || 'default';
+                if (theme === 'universite') {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = "/static/css/general/universite.css"; // Chemin direct
+                    link.id = 'theme-colors';
+                    document.head.appendChild(link);
+                }
+            })();
+        </script>
+    
+        <!-- Ton JS habituel -->
+        <script src="{% static 'js/theme.js' %}"></script>
+    </head>
+<body>
+<div id="loading-overlay" class="loading-overlay">
+    <div class="spinner"></div>
+</div>
+<header>
+    <div class="header-wrapper">
+        <div class="header-left">
+            <button class="icon-button">
+                <a href="{% url 'menu' %}">
+                    <img src="{% static 'return.png' %}" alt="retour" />
+                </a>
+            </button>
+        </div>
+        <div class="header-center">
+            <h1>ASADI</h1>
+        </div>
+        <div class="header-right"></div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="menu">
+        <div class="section section5">
+            <div class="text">
+                <h2>Fichiers:</h2>
+            </div>
+            <form method="get" class="search-bar">
+                <input type="text" name="q" placeholder="Rechercher un document..." value="{{ query }}">
+
+                <select name="filter_workspace" class="workspace-select">
+                    <option value="">Général</option>
+                    {% for ws in workspaces %}
+                        <option value="{{ ws.id }}" {% if filter_workspace == ws.id|stringformat:"s" %}selected{% endif %}>
+                            {{ ws.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+
+                <button type="submit" class="submit-button">Filtrer</button>
+            </form>
+            <ul class="menu-list">
+                {% if filter_workspace %}
+                    {% with workspaces|get_workspace_name:filter_workspace as ws_name %}
+                        <div class="filter-inline">
+                            <span>Filtré sur <strong>{{ ws_name }}</strong></span>
+                            <form method="get" style="display: inline;">
+                                <input type="hidden" name="q" value="{{ query }}">
+                                <button type="submit" class="reset-btn-inline">Réinitialiser</button>
+                            </form>
+                        </div>
+                    {% endwith %}
+                {% endif %}
+                {% for fichier in fichiers %}
+                    <li class="file-item" data-doc-id="{{ fichier.id }}">
+                        <div class="file-row">
+                            <div class="file-name-wrapper">
+                                {% if fichier.fichier %}
+                                    <a href="{{ fichier.fichier.url }}" class="file-name" title="{{ fichier.nom }}" target="_blank" rel="noopener noreferrer">
+                                        {{ fichier.nom }}
+                                    </a>
+                                {% else %}
+                                    <span class="file-name">{{ fichier.nom }} (pas de fichier)</span>
+                                {% endif %}
+                            </div>
+                            <div class="file-button-wrapper">
+                                {% with fichier.workspaces.all|first as current_ws %}
+                                    <button type="button" class="modify-button" onclick='openWorkspaceForm({{ fichier.id }}, "{{ current_ws.name|default_if_none:"" }}")'>
+                                        Modif.
+                                    </button>
+                                {% endwith %}
+                                <form method="post" action="{% url 'delete_document' fichier.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="delete-button">Sup.</button>
+                                </form>
+
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li>Aucun fichier pour l’instant.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="content" style="overflow-y: auto; max-height: 100vh;">
+        <form id="upload-form" method="post" enctype="multipart/form-data" action="{% url 'documents' %}">
+            {% csrf_token %}
+            <div class="upload-wrapper">
+                <div class="drop-zone" id="drop-zone">
+                    Déposez vos fichiers ici ou cliquez pour les sélectionner<br>
+                    <small>Extensions supportées : .pdf, .docx, .doc, .rtf, .html, .htm, .txt, .csv, .md, .xlsx, .pttx, .zip</small>
+                    <input type="file" name="fichier" id="file-input" multiple accept=".pdf,.docx,.doc,.rtf,.html,.htm,.txt,.csv,.md,.xlsx,.pttx,.zip">
+                    <div class="file-list" id="file-list"></div>
+                </div>
+
+                <div class="workspace-selection-block">
+                    <label for="workspace">Sélectionner un workspace (WS) existant :</label>
+                    <div class="workspace-delete-group">
+                        <select name="workspace" id="workspace" class="workspace-select">
+                            <option value="">-- Aucun --</option>
+                            {% for ws in workspaces %}
+                                <option value="{{ ws.id }}">{{ ws.name }}</option>
+                            {% endfor %}
+                        </select>
+
+                        <button type="button" class="delete-ws-btn" onclick="deleteWorkspace('keep')">Sup. WS</button>
+                        <button type="button" class="delete-ws-btn danger" onclick="deleteWorkspace('delete')">Sup. WS + fichiers</button>
+                    </div>
+
+                    <label for="new_workspace">Ou créer un nouveau workspace :</label>
+                    <input type="text" name="new_workspace" id="new_workspace" placeholder="Nom du nouveau workspace">
+                </div>
+
+                <button type="submit" class="submit-button">Envoyer</button>
+            </div>
+        </form>
+  </div>
+    </div>
+</div>
+<div class="modal-basic-overlay" id="workspace-form-wrapper">
+    <div class="modal-basic">
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="doc_id" id="doc-id-input">
+
+            <label for="workspace-select-modal">Nouveau workspace :</label>
+            <select name="new_workspace" id="workspace-select-modal">
+                <option value="">-- Aucun workspace --</option>
+                {% for ws in workspaces %}
+                    <option value="{{ ws.id }}">{{ ws.name }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="modal-btns">
+                <button type="submit" class="submit-button">Valider</button>
+                <button type="button" onclick="closeWorkspaceForm()" class="cancel-basic">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- À placer juste avant la fermeture de </body> dans base.html -->
+<footer class="site-footer">
+    <div class="container">
+      <nav class="footer-nav">
+        <a href="{% url 'cgu' %}">CGU</a>
+        <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </nav>
+      <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/helpers.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
+</html>

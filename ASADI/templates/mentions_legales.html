@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/footer.css' %}">
+<style>
+    .container {
+        overflow-y: auto !important;
+        height: 60vh !important; /* Réduit la hauteur pour laisser plus d'espace au footer */
+        max-height: 60vh !important;
+    }
+</style>
+{% endblock %}
+
+{% block header-left %}
+    <button class="icon-button">
+        {% if request.user.groups.all.0.name == 'administrateurs' %}
+            <a href="{% url 'menu' %}">
+                <img src="{% static 'return.png' %}" alt="Retour au menu admin" />
+            </a>
+        {% else %}
+            <a href="{% url 'prompt' %}">
+                <img src="{% static 'return.png' %}" alt="Retour à la page prompt" />
+            </a>
+        {% endif %}
+    </button>
+{% endblock %}
+
+{% block container %}
+<main class="container">
+    <article class="mentions-legales">
+        <h1>Mentions légales</h1>
+    
+        <section>
+            <h2>Information éditoriales</h2>
+            <p>Ce site web est édité par les étudiants [L3W1] de l’UFR de Mathématiques et Informatique, Université Paris Cité, 
+              Établissement public à caractère scientifique, culturel et professionnel, dont le Siège est situé au :
+              <br>
+              12 Rue de l'Ecole de Médecine
+              <br>
+              75270, Paris CEDEX 06
+              <br>
+              Téléphone : 01.76.53.16.16
+            </p>
+            
+
+        </section>
+    
+        <section>
+            <h2>Directeur de la publication</h2>
+            <p><strong>David Janiszek</strong>, Directeur de l’UFR de Mathématiques et Informatique Université Paris Cité.</p>
+        </section>
+    
+        <section>
+            <h2>Contact</h2>
+            <ul>
+              <li><strong>Email :</strong> <a href="asadi.noreply@gmail.com">asadi.noreply@gmail.com</a></li>
+            </ul>
+        </section>
+    
+        <section>
+            <h2>Hébergement</h2>
+            <p>Ce site est hébergé par la Direction du numérique de l’université.</p>
+        </section>
+    
+        <section>
+            <h2>Propriété intellectuelle</h2>
+            <p>
+              Tous les contenus (textes, graphismes, images, logos, vidéos, icônes, sons, etc.) du site sont la propriété exclusive de l'UFR de Mathématiques et Informatique, Université Paris Cité ou de ses partenaires, sauf mentions contraires.
+              Toute reproduction, distribution, modification, adaptation, retransmission ou publication de ces différents contenus est strictement interdite sans l’accord exprès par écrit des équipes de l'UFR.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Données personnelles</h2>
+            <p>
+              Conformément à la loi “Informatique et Libertés” du 6 janvier 1978 modifiée et au Règlement Général sur la Protection des Données (RGPD), vous disposez d’un droit d’accès, de rectification, d’effacement et d’opposition au traitement de vos données personnelles.
+            </p>
+            <ul>
+              <li>Pour l’exercer, contactez-nous à : <a href="asadi.noreply@gmail.com">asadi.noreply@gmail.com</a></li>
+              <li>Vous pouvez également saisir la CNIL : <a href="https://www.cnil.fr" target="_blank">www.cnil.fr</a></li>
+            </ul>
+        </section>
+    
+        <section>
+            <h2>Cookies</h2>
+            <p>
+              Le site utilise des cookies :
+            </p>
+            <ul>
+              <li>Cookies strictement nécessaires au fonctionnement du site</li>
+              <li>Cookies d’analyse d’audience (Google Analytics, Matomo, etc.)</li>
+            </ul>
+            <p>
+              Vous pouvez à tout instant paramétrer ou désactiver les cookies via les préférences de votre navigateur.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Liens externes</h2>
+            <p>
+              Les liens présents sur ce site vers d’autres sites n’engagent pas la responsabilité de l'UFR quant au contenu de ces sites tiers.
+            </p>
+        </section>
+    
+        <section>
+            <h2>Responsabilité</h2>
+            <p>
+              L'UFR de Mathématiques et d'informatique, ainsi que ses étudiants, ne saurait être tenue responsable des dommages directs ou indirects résultant de l’accès au site ou de l’impossibilité d’y accéder, de même que de l’usage pouvant être fait des informations qui y figurent.
+            </p>
+        </section>
+    </article>
+</main>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Détail quiz : {{ quiz.titre }} - ASADI</title>
+    <link rel="stylesheet" href="{% static 'css/quiz/creer_quiz.css' %}">
+    <style>
+        .quiz-wrapper {
+            max-width: 800px;
+            margin: 60px auto;
+            background: #0B1D72;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        .quiz-title {
+            font-family: "Jaro", sans-serif;
+            font-size: 2.5rem;
+            color: #3ACCE1;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .quiz-date {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        .quiz-question-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-question-list li {
+            background: rgba(255,255,255,0.05);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1rem;
+        }
+
+        .launch-btn {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0 auto;
+            background: #3ACCE1;
+            color: black;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .launch-btn:hover {
+            background: #2aa9c2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #3ACCE1;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 6px 14px;
+            border: 2px solid #3ACCE1;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: #3ACCE1;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-wrapper fade-in">
+        <a href="{% url 'prompt' %}" class="back-link">← Retour</a>
+
+        <h1 class="quiz-title">{{ quiz.titre }}</h1>
+        <p class="quiz-date">Date de création : {{ quiz.date_creation|date:"j F Y à H:i" }}</p>
+
+        <h3>Questions :</h3>
+        <ul class="quiz-question-list">
+            {% for question in quiz.questions.all %}
+                <li>{{ forloop.counter }}. {{ question.questionQuiz }}</li>
+            {% empty %}
+                <li>Aucune question enregistrée.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'lancer_quiz' quiz.id %}" class="launch-btn">▶️ Lancer ce quiz</a>
+    </div>
+
+<!-- À placer juste avant la fermeture de </body> dans base.html -->
+<footer class="site-footer">
+    <div class="container">
+      <nav class="footer-nav">
+        <a href="{% url 'cgu' %}">CGU</a>
+        <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+        <a href="{% url 'contact' %}">Contact</a>
+      </nav>
+      <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

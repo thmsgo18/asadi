@@ -1,0 +1,37 @@
+.container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: calc(100vh - 180px); /* ajuste la hauteur */
+    flex: 1 0 auto;
+}
+
+.sel {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.icon-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-text img {
+    width: 75px;
+    height: auto;
+}
+
+.icon-text p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: white;
+    text-align: center;
+}

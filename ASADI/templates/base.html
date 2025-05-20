@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>ASADI</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block style %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    <div class="header-wrapper">
+        <div class="header-left">
+            {% block header-left %}
+            {% endblock %}
+        </div>
+        <div class="header-center">
+            <h1>ASADI</h1>
+        </div>
+        <div class="header-right">
+        </div>
+    </div>
+</header>
+
+<!-- Bloc qui sera remplacé dans les templates enfants -->
+
+{% block container %}
+{% endblock %}
+
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="{% url 'cgu' %}">CGU</a>
+            <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+        <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+{% block script %}
+{% endblock %}
+</body>
+</html>

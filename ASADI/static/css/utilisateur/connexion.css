@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap');
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+}
+
+
+h1 {
+    text-align: center;
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    padding: 0 0;
+}
+
+
+
+/* ====== MODIFICATION ICI ====== */
+body {
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+
+}
+
+.message {
+    padding: 12px;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.message.error{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fa0505;
+}
+
+.message.success{
+     width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    color: #54D5D0;
+}
+
+
+
+/* ======================================
+   PAGE DE CONNEXION
+   ====================================== */
+
+
+.login-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 300px;
+    margin: 100px auto;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-group input::placeholder {
+  color: black;
+  font-style: italic;
+}
+
+.input-group .icon {
+    position: absolute;
+    left: 10px;
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+    padding-right: 40px;
+    border: none;
+    border-radius: 1000px;
+    outline: none;
+    font-size: 1rem;
+    background-color: #3ACCE1;
+    color: #000000;
+}
+
+.btn-connexion,
+.btn-inscription {
+    width: 75%;
+    height: 50px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 1000px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 0.2rem auto auto;
+}
+
+.btn-connexion {
+    background-color: #3ACCE1;
+    color: #000000;
+}
+
+.btn-connexion:hover{
+      background-color: #3a96e1;
+}
+
+.btn-inscription {
+    background-color: lightgrey;
+    color: #000000;
+}
+
+.btn-inscription:hover{
+     background-color: #8a8686;
+}
+
+
+.forgot-password {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.forgot-password a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    color: lightgrey;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #8a8686;
+    text-decoration: underline;
+}
+
+
+.eye-toggle {
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.eye-toggle svg {
+  color: black;
+  width: 24px;
+  height: 24px;
+  transition: color 0.3s;
+}
+
+.eye-toggle:hover svg {
+  color: grey;
+}
+
+
+.site-footer {
+    background: transparent; /* ou une couleur de fond si besoin */
+    padding: 1.5rem 0;
+}
+  
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+  
+/* barre de liens */
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;             /* espacement horizontal */
+    flex-wrap: wrap;       /* retour à la ligne si nécessaire */
+    justify-content: center;
+    margin: 0;             /* on gère l’espacement via gap */
+    padding: 0;
+    list-style: none;
+}
+  
+/* liens du footer */
+.site-footer .footer-nav a {
+    color: #54D5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+  
+.site-footer .footer-nav a:hover {
+    color: #3ACCE1;
+    text-decoration: underline;
+}
+  
+/* ligne copyright */
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    text-align: center;
+}

@@ -1,0 +1,573 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    background: #020D42;
+    color: white;
+    font-family: "Inter", sans-serif;
+}
+
+header {
+    width: 100%;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-left,
+.header-right {
+    flex: 1;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button img {
+    width: 30px;
+    height: 30px;
+}
+
+.section5 {
+    flex:10;
+}
+
+.menu {
+    flex: 1;
+    max-width: 25%;
+    background: #0B1D72;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu .section {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 5px;
+    border-radius: 20px;
+    h4, h3 {
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+
+}
+
+
+.content {
+    flex: 2;
+    max-width: 75%;
+    background: #0B1D72;
+    border-radius: 20px;
+    margin: 10px;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    gap: 12px;
+    justify-content: center;  /* ou flex-start, selon votre mise en page */
+    align-items: center;
+    flex-direction: column;
+}
+
+.content.user-profile h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+}
+
+.menu-list {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+
+.menu-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+}
+
+.user-text {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+}
+
+.user-text:hover {
+    color: #3ACCE1;
+    cursor: pointer;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2px 0 4px;
+    padding: 0;
+    height: 36px;
+    width: 100%;
+}
+
+.search-bar input[type="text"],
+.search-bar select,
+.search-bar button {
+    height: 28px;
+    padding: 4px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    line-height: 1;
+}
+
+.role-select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+    width: 100%;
+    appearance: none; /* enlève le style par défaut */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg width='14' height='10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l6 6 6-6' stroke='%23fff' stroke-width='2' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.search-bar input[type="text"] {
+    flex: 2;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+}
+
+.search-bar .submit-button {
+    background-color: #54D5D0;
+    color: #0B1D72;
+    border: none;
+    padding: 5px 10px;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-bar .submit-button:hover {
+    background-color: #40c3bd;
+}
+
+.btn-asadi {
+    background-color: #3d68ff;
+    color: white;
+    border: none;
+    padding: 10px 0;
+    margin: 10px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    display: inline-block;       /* pour que width soit prise en compte */
+    min-width: 120px;            /* largeur minimum, à adapter selon le libellé */
+    text-align: center;          /* centrer le texte */
+    font-weight: 600;
+}
+
+.btn-asadi:hover {
+    background-color: #5a86ff;
+}
+
+.btn-asadi.danger {
+    background-color: #d94352;
+}
+
+.btn-asadi.danger:hover {
+    background-color: #f1636f;
+}
+
+.file-name{
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.file-name:hover{
+    text-decoration: underline ;
+}
+
+
+.filter-inline{
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: "Inter", sans-serif;
+    margin-bottom: 10px;
+    margin-left: 10px; /* 🆕 Ajoute ce padding/marge */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.reset-btn-inline {
+    background: none;
+    border: 1px solid #54D5D0;
+    color: #54D5D0;
+    padding: 4px 10px;
+    font-size: 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+}
+
+.reset-btn-inline:hover {
+    background-color: #54D5D0;
+    color: #0B1D72;
+}
+
+.progress-section {
+    margin-top: 16px;
+    width: 100%;
+}
+
+
+.progress-bar-wrapper {
+  position: relative;             /* pour le label absolu */
+  width: 100%;
+  height: 12px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+
+/* la partie colorée */
+.progress-bar {
+  height: 100%;
+  transition: width .4s ease;
+}
+
+
+/* label centré sur la progression */
+.progress-label {
+    /* positionné au milieu */
+  transform: translate(-50%, 4px); /* recentré et un petit offset */
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #FFF;
+  pointer-events: none;
+}
+
+/* === Profil utilisateur === */
+.user-profile {
+    width: 80%;
+    height: 80%;
+    margin: 0 auto; /* centre la carte horiz. */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.user-profile1 {
+    width: 80%;
+    height: 80%;
+    margin: 0 auto; /* centre la carte horiz. */
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.user-profile2 {
+    width: 80%;
+    height: 80%;
+    margin: 0 auto; /* centre la carte horiz. */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.user-profile2 h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #54D5D0;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.user-actions .btn-asadi {
+  flex: 1;             /* boutons de même taille */
+  max-width: 150px;    /* limite la largeur */
+}
+
+
+.stats-toggle-wrapper {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.stats-section {
+  margin: 0 10px 20px;
+  background: rgba(255,255,255,0.08);
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-table th,
+.stats-table td {
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.stats-table thead {
+  background: rgba(84,213,208,0.2);
+}
+
+.stats-table tr:nth-child(even) {
+  background: rgba(255,255,255,0.05);
+}
+
+.stats-table th {
+  font-weight: 600;
+  color: #54D5D0;
+}
+
+/* === Amélioration du style des statistiques === */
+.stats-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #54D5D0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.stats-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.stat-card {
+    background: rgba(84, 213, 208, 0.2);
+    border: 1px solid rgba(84, 213, 208, 0.5);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+.stat-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+.stat-card p {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+}
+/* === Fin style statistiques === */
+
+/* === Styles pour la modal d'édition === */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 51, 0.8);
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #1c1f4a;
+    color: white;
+    margin: 8% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 40%;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+.close:hover,
+.close:focus {
+    color: #54D5D0;
+    text-decoration: none;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+
+.form-group input {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+}
+
+.form-group input:focus {
+    outline: 2px solid #54D5D0;
+    background-color: #fff;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn-cancel {
+    background-color: #666;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-cancel:hover {
+    background-color: #888;
+}
+
+/* === Fin styles modal d'édition === */
+
+.modal-asadi {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 51, 0.8);
+    backdrop-filter: blur(4px);
+}
+.modal-content-asadi {
+    background-color: #1c1f4a;
+    color: white;
+    margin: 8% auto;
+    padding: 30px;
+    border-radius: 20px;
+    width: 40%;
+    max-height: 80vh;
+    overflow-y: auto;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.edit-form {
+    background-color: #2e2e4e;
+    padding: 1.2rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+.edit-form .form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.edit-form label {
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+}
+.edit-form input {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    font-size: 14px;
+}
+.edit-form input:focus {
+    outline: 2px solid #77aaff;
+    background-color: #fff;
+}

@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Jaro&display=swa');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico:wght@400;500&family=Roboto:wght@400;500&display=swap');
+
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    width: 100%;
+    flex: 0 0 15%;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.header-left,
+.header-right {
+    flex: 1;
+    margin: 10px;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    text-align: center;
+}
+
+body {
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+}
+
+.container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: calc(100vh - 180px); /* ajuste la hauteur */
+    flex: 1 0 auto;
+}
+.site-footer {
+    background: transparent;
+    flex: 0 0 10%;
+}
+
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.site-footer .footer-nav a {
+    color: #54D5D0;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+
+.site-footer .footer-nav a:hover {
+    color: #3ACCE1;
+    text-decoration: underline;
+}
+
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #ccc;
+    text-align: center;
+}

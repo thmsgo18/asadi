@@ -1,0 +1,119 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    border: 0;
+}
+
+header {
+    width: 100%;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.header-left,
+.header-right {
+    flex: 1;
+}
+
+.header-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Jaro", sans-serif;
+    margin: 0;
+    color: #54D5D0;
+    font-size: 10vh;
+    text-align: center;
+}
+
+header button {
+    font-size: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-button img {
+    width: 30px;
+    height: 30px;
+}
+
+body{
+    background: #020D42;
+    color: white;
+    box-sizing: border-box;
+}
+
+.container {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    height: 85vh;
+}
+
+.table-container {
+    width: 90%;
+    max-width: 95%;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+
+th, td {
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    color: white;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.container .utilisateur {
+    flex: 1;
+    display: flex;
+    border-radius: 25px;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    background: #0B1D72;
+}
+
+.delete-button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}

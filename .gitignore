@@ -1,0 +1,41 @@
+# Byte-compiled / optimized / DLLs
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDEs
+.idea/
+.vscode/
+
+# Django
+*.log
+db.sqlite3
+
+# Misc
+*.pyc
+
+# macOS files
+.DS_Store
+
+# Environment variables
+.env
+
+# Credentials and sensitive files
+client_secret.json
+token.pickle
+
+# Media uploads directory
+media/
+
+# SVN specific files
+.svn/
+*.svn-base
+.svn-work

@@ -1,0 +1,148 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Scénario n°{{ scenario.id }} - Modifier Question - ASADI</title>
+    
+        <!-- CSS principal -->
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/scenario.css' %}?v=2">
+    
+        <!-- Chargement du thème Université si activé -->
+        <script>
+            (function() {
+                const theme = localStorage.getItem('theme') || 'default';
+                if (theme === 'universite') {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = "/static/css/universite.css";
+                    link.id = 'theme-colors';
+                    document.head.appendChild(link);
+                }
+            })();
+        </script>
+    
+        <!-- Script de gestion dynamique du thème -->
+        <script src="{% static 'js/theme.js' %}"></script>
+    </head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputs = document.querySelectorAll(".create-form input, .create-form textarea");
+
+        inputs.forEach((input) => {
+            input.addEventListener("input", function () {
+                if (input.value.trim() !== "") {
+                    input.style.backgroundColor = "white";
+                    input.style.color = "black";
+                } else {
+                    input.style.backgroundColor = "#3ACCE1";
+                    input.style.color = "black";
+                }
+            });
+        });
+    });
+</script>
+
+<body>
+    <header>
+        <div class="header-wrapper">
+            <div class="header-left">
+                <button class="icon-button">
+                    <a href="{% url 'voir_scenario' scenario.id %}">
+                        <img src="{% static 'return.png' %}" alt="retour" />
+                    </a>
+                </button>
+            </div>
+            <div class="header-center">
+                <h1>ASADI</h1>
+            </div>
+            <div class="header-right"></div>
+        </div>
+    </header>
+
+    {% if messages %}
+        <ul class="messages" style="list-style: none; text-align: center;">
+            {% for message in messages %}
+                <li style="color: lime; font-weight: bold; margin: 15px 0;">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="container">
+        <div class="menu">
+
+            <div class="section section5">
+                <div class="scenario-header">
+                    <div class="text">
+                    <h2>Scénario:</h2>
+                </div>
+                     <a href="{% url 'scenario' %}" class="add-scenario-btn">+ Créer un scénario</a>
+                </div>
+                <form method="get" class="search-bar">
+                    <input type="text" name="q" placeholder="Rechercher un scenario..." value="{{ query }}">
+                    <button type="submit" class="submit-button">Rechercher</button>
+                </form>
+               <ul class="menu-list">
+                    {% for sc in scenarios %}
+                        <li class="file-item">
+                            <div class="file-row">
+                                <div class="file-name-wrapper">
+                                    <a href="{% url 'voir_scenario' sc.id %}" class="scenario-text">
+                                        {{ sc.titre }}
+                                    </a>
+                                </div>
+                            
+                                <div class= "file-button-wrapper">
+                                    <!-- NOUVEAU -->
+                                    <button onclick="window.location.href='{% url 'modifier_scenario' sc.id %}'" class="lancer-quiz">Modifier</button>
+                                    <form method="post" action="{% url 'supprimer_scenario' sc.id %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="delete-button">Supprimer</button>
+                                    </form>
+                                </div> <!-- FIN NOUVEAU -->
+                            </div>
+                        </li>
+                    {% empty %}
+                        <li>Aucun scénario pour le moment</li>
+                    {% endfor %}
+               </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            <h2>Modifier la question <span style="color:#3ACCE1">n°{{ position }}</span> du scénario : <span style="color:#3ACCE1">{{ scenario.titre }}</span></h2>
+
+            <form method="post" class="create-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.question }}
+                </div>
+                <div class="form-group">
+                    {{ form.reponse }}
+                </div>
+                <button type="submit">Enregistrer les modifications</button>
+                <button type="submit"
+                        name="action"
+                        value="generate_ai"
+                        formnovalidate>
+                    Modifier avec l’IA
+                </button>
+            </form>
+        </div>
+    </div>
+
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="{% url 'cgu' %}">CGU</a>
+            <a href="{% url 'mentions_legales' %}">Mentions légales</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+        <p class="footer-copy">© {{ now|date:"Y" }} ASADI. Tous droits réservés.</p>
+    </div>
+</footer>
+
+</body>
+</html>

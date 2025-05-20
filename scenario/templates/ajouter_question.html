@@ -1,0 +1,38 @@
+{% extends "base_scenario.html" %}
+{% load static %}
+
+{% block style %}
+{{ block.super }}
+<title>Scénario n°{{ scenario.id }} - Ajouter Question - ASADI</title>
+{% endblock %}
+
+{% block header-left %}
+<button class="icon-button">
+    <a href="{% url 'voir_scenario' scenario.id %}">
+        <img src="{% static 'return.png' %}" alt="retour" />
+    </a>
+</button>
+{% endblock %}
+
+{% block content %}
+<h2>Ajouter une question au scénario : <span style="color:#3ACCE1">{{ scenario.titre }}</span></h2>
+
+<form method="post" class="create-form">
+    {% csrf_token %}
+    <div class="form-group">
+        {{ form.question }}
+    </div>
+    <div class="form-group">
+        {{ form.reponse }}
+    </div>
+    <button type="submit" name="action" value="add_continue">Ajouter la question et continuer</button>
+    <button type="submit" name="action" value="add_finish">Ajouter la question et terminer</button>
+
+    <button type="submit"
+            name="action"
+            value="generate_ai"
+            formnovalidate>   <!-- 👈 empêche la validation HTML5 -->
+        Générer avec l'IA
+    </button>
+</form>
+{% endblock %}

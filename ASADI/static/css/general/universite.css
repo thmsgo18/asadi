@@ -1,0 +1,325 @@
+/* Thème Université */
+body {
+    background: #7A1530;
+    color: #000000;
+}
+
+h1 {
+    color: #ffffff;
+}
+
+/* Header title ASADI en blanc */
+header .header-center h1 {
+    color: #ffffff !important;
+}
+
+/* Titres des sections du menu en blanc */
+.menu h4 {
+    color: #ffffff;
+}
+
+/* Profil (nom d'utilisateur et niveau) en blanc */
+.menu .profile-info {
+    color: #ffffff;
+}
+
+/* Boutons filtre et envoi en blanc */
+.filter-btn, .send-btn {
+    background-color: #ffffff;
+}
+
+.btn-connexion {
+    background-color: #ffffff;
+    color: #7A1530;
+}
+
+.btn-connexion:hover {
+    background-color: #C1272D; /* bordeaux plus clair tirant sur le rouge */
+    color: #ffffff;
+}
+
+.btn-inscription {
+    background-color: #CCCCCC; /* gris neutre */
+    color: #7A1530;
+    border: 2px solid #7A1530;
+}
+
+.btn-inscription:hover {
+    background-color: #B3B3B3; /* gris hover */
+}
+
+.forgot-password a,
+.forgot-password a:hover {
+    color: #7A1530;
+}
+
+.input-group input::placeholder {
+    color: #000000;
+}
+
+.eye-toggle svg {
+    color: #000000;
+}
+
+.input-group .icon {
+    color: #000000;
+}
+
+/* Inputs en mode Université */
+.input-group input {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Prompt page container backgrounds override */
+.menu, .content {
+    background-color: #8C2640;
+}
+
+/* Prompt user message - fond pastel bordeaux doux */
+.message.user-message, .user-message {
+    background-color: #FFE5E8 !important;  /* pastel bordeaux doux */
+}
+
+/* Bot-message sur fond blanc pour plus de contraste */
+.message.bot-message, .bot-message {
+    background-color: #FFFFFF !important;
+}
+
+/* Nouveau prompt button */
+.new-prompt-btn button {
+    background: #ffffff !important;
+    color: #7A1530 !important;
+    border: 2px solid #7A1530 !important;
+}
+
+/* +Quiz, lancer quiz et lancer scénario */
+.text-quiz button, .text button, .lancer-quiz, .relancer-quiz {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+/* Filtre pop-up style override */
+#myModal.modal-asadi {
+    background-color: rgba(122,21,48,0.8) !important; /* overlay bordeaux */
+}
+#myModal .modal-content-asadi {
+    background-color: #8C2640 !important; /* contenu bordeaux éclairci */
+    color: #ffffff !important;
+    border: 2px solid #7A1530 !important;
+}
+#myModal .modal-content-asadi h2,
+#myModal .modal-content-asadi .close {
+    color: #ffffff !important;
+}
+#myModal .modal-btns .btn-asadi {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+#myModal .modal-btns .btn-asadi:hover {
+    background: #8C2640 !important;
+}
+
+/* Documents pages overrides */
+/* Submit, filter, upload buttons */
+.submit-button, .search-bar .submit-button {
+    background: #ffffff !important;
+    color: #7A1530 !important;
+    border: 2px solid #7A1530 !important;
+    border-radius: 12px !important;
+    padding: 10px 20px !important;
+}
+.submit-button:hover, .search-bar .submit-button:hover {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+}
+
+/* Reset inline button */
+.reset-btn-inline {
+    background: #ffffff !important;
+    color: #7A1530 !important;
+    border: 1px solid #7A1530 !important;
+    border-radius: 12px !important;
+    padding: 6px 10px !important;
+}
+.reset-btn-inline:hover {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+}
+
+/* Search input zone text white */
+.search-bar input[type="text"] {
+    color: #ffffff !important;
+}
+
+/* Center text in document filter button */
+.search-bar .submit-button {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: auto !important;
+    padding: 4px 12px !important;
+}
+
+/* Input backgrounds override for search and new workspace inputs */
+.search-bar input[type="text"], #new_workspace {
+    background-color: rgba(255,255,255,0.2) !important;
+}
+
+/* Placeholder text blanc pour recherches et nouveau workspace */
+.search-bar input[type="text"]::placeholder,
+#new_workspace::placeholder {
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+
+/* Documents page: texte en blanc */
+.section5 .text h2,
+.content,
+.content h2, .content span, .content label, .content li {
+    color: #ffffff !important;
+}
+
+/* Chat messages override for prompt page */
+.message-wrapper .message,
+.message-wrapper .message p {
+    color: #000000 !important;
+}
+
+/* Force message text back to black */
+.message.user-message, .user-message,
+.message.bot-message, .bot-message {
+    color: #000000 !important;
+}
+
+/* Modify/Delete document buttons */
+.modify-button {
+    background-color: #007bff !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease-in-out !important;
+}
+.modify-button:hover {
+    background-color: #0056b3 !important;
+}
+.delete-button {
+    background-color: red !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+    transition: background 0.2s ease-in-out !important;
+}
+.delete-button:hover {
+    background-color: darkred !important;
+}
+
+/* Workspace delete buttons */
+.delete-ws-btn {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 6px 10px !important;
+    margin: 5px !important;
+}
+.delete-ws-btn.danger {
+    background: #d94352 !important;
+    color: #ffffff !important;
+}
+.delete-ws-btn:hover, .delete-ws-btn.danger:hover {
+    background: #ffffff !important;
+    color: #7A1530 !important;
+    border: 2px solid #7A1530 !important;
+}
+.delete-ws-btn.danger:hover {
+    background: #ffffff !important;
+    color: #d94352 !important;
+    border: 2px solid #d94352 !important;
+}
+
+/* Workspace form modal overrides */
+.modal-basic-overlay {
+    background-color: rgba(122,21,48,0.8) !important;
+}
+.modal-basic {
+    background-color: #8C2640 !important;
+    color: #ffffff !important;
+    border: 2px solid #7A1530 !important;
+    border-radius: 12px !important;
+}
+.modal-basic h2, .modal-basic label {
+    color: #ffffff !important;
+}
+.modal-basic .modal-btns button {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 12px !important;
+}
+.cancel-basic {
+    background: #ffffff !important;
+    color: #7A1530 !important;
+    border: 2px solid #7A1530 !important;
+    border-radius: 12px !important;
+    padding: 6px 10px !important;
+}
+.cancel-basic:hover {
+    background: #7A1530 !important;
+    color: #ffffff !important;
+}
+
+/* Délai de transition hover pour tous les boutons */
+button, input[type="button"], input[type="submit"], .add-scenario-btn {
+    transition: background 0.3s ease 0.1s, color 0.3s ease 0.1s !important;
+}
+
+.site-footer {
+    background: transparent; /* ou une couleur de fond si besoin */
+    padding: 1.5rem 0;
+}
+  
+.site-footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+  
+/* barre de liens */
+.site-footer .footer-nav {
+    display: flex;
+    gap: 2rem;             /* espacement horizontal */
+    flex-wrap: wrap;       /* retour à la ligne si nécessaire */
+    justify-content: center;
+    margin: 0;             /* on gère l’espacement via gap */
+    padding: 0;
+    list-style: none;
+}
+  
+/* liens du footer */
+.site-footer .footer-nav a {
+    color: #ccc;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease-in-out;
+}
+  
+.site-footer .footer-nav a:hover {
+    color: #906d6d;
+    text-decoration: underline;
+}
+  
+/* ligne copyright */
+.site-footer .footer-copy {
+    margin: 0;
+    font-size: 0.85rem;
+    color: black;
+    text-align: center;
+}

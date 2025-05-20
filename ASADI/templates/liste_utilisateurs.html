@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+{% load static %}
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/utilisateur/liste_utilisateurs.css' %}">
+{% endblock %}
+{% block header-left %}
+    <button class="icon-button">
+        <a href="{% url 'menu' %}">
+            <img src="{% static 'return.png' %}" alt="Retour" />
+        </a>
+    </button>
+
+{% endblock %}
+
+{% block container %}
+<div class="container">
+    <!-- ========== MENU (liste des utilisateurs + recherche) ========== -->
+    <div class="menu">
+        <div class="section section5">
+            <div class="text">
+                <h2>Utilisateurs :</h2>
+            
+                <button id="toggle-stats" class="btn-asadi">Afficher les statistiques</button>
+                
+            </div>
+            <form method="get" class="search-bar">
+                <input id="search-user" type="text" name="q" placeholder="Rechercher un utilisateur..." value="{{ query }}">
+
+                <select name="filter_role" class="role-select">
+                    <option value="" {% if not filter_role %}selected{% endif %}>Rôles</option>
+                    <option value="admin" {% if filter_role == 'admin' %}selected{% endif %}>Admin</option>
+                    <option value="user" {% if filter_role == 'user' %}selected{% endif %}>User</option>
+                </select>
+                <button type="submit" class="submit-button">Filtrer</button>
+            </form>
+
+            <ul class="menu-list">
+                {% if filter_role %}
+                    <div class="filter-inline">
+                        <span>Filtré sur le rôle : <strong>
+                        {# Si tu utilises des valeurs “admin” et “user”, tu peux les remplacer par un libellé plus lisible#}
+                        {% if filter_role == 'admin' %}
+                            Administrateur
+                        {% elif filter_role == 'user' %}
+                            Utilisateur
+                        {% else %}
+                            {{ filter_role }}
+                        {% endif %}
+                        </strong></span>
+
+
+                        <form method="get" style="display: inline;">
+                            {% if query %}
+                                <input type="hidden" name="q" value="{{ query }}">
+                            {% endif %}
+                            <button type="submit" class="reset-btn-inline">Réinitialiser</button>
+                        </form>
+                    </div>
+                {% endif %}
+
+                {% for utilisateur in utilisateurs %}
+                <li class="file-item user-item"
+                    id="user-row-{{ utilisateur.id }}"
+                    data-id="{{ utilisateur.id }}"
+                    data-name="{{ utilisateur.prenom }} {{ utilisateur.nom }}">
+                    <div class="file-row" onclick="afficherProfilUtilisateur({{ utilisateur.id}})">
+                        <span class="file-name">{{ utilisateur.nom }} {{ utilisateur.prenom }}</span>
+                    </div>
+                </li>
+                {% empty %}
+                <li>Aucun utilisateur trouvé.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- ========== CONTENT (profil cachés puis affiché) ========== -->
+    <div id="profile-container" class="content">
+        {% for utilisateur in utilisateurs %}
+        <div id="profil-utilisateur-{{ utilisateur.id }}" class="user-profile"  data-niveau="{{ utilisateur.niveau }}" data-max="20" style="display: none;">
+            <h2>Profil de {{ utilisateur.username }}</h2>
+
+            <p><strong>Nom utilisateur :</strong> {{ utilisateur.username }}</p>
+            <p><strong>Prénom :</strong> {{ utilisateur.prenom }}</p>
+            <p><strong>Nom :</strong> {{ utilisateur.nom }}</p>
+            <p><strong>Email :</strong> {{ utilisateur.email }}</p>
+            <p><strong>Dernière connexion :</strong> {{ utilisateur.last_login|date:"d/m/Y H:i" }}</p>
+            <div class="progress-section">
+                <p><strong>Niveau : {{ utilisateur.niveau }}/20</strong> </p>
+                <div class="progress-bar-wrapper" id="progress_wrapper">
+                    <div class="progress-bar" id="progress" style="width: {% widthratio utilisateur.niveau 20 100 %}%"></div>
+                </div>
+            </div>
+
+
+            <div class="user-actions">
+                
+
+                <button type="button"
+                class="btn-asadi edit-btn"
+                data-id="{{ utilisateur.id }}"
+                data-username="{{ utilisateur.username }}"
+                data-prenom="{{ utilisateur.prenom }}"
+                data-nom="{{ utilisateur.nom }}"
+                data-email="{{ utilisateur.email }}"
+                data-niveau="{{ utilisateur.niveau }}"
+                onclick="window.openEditModal(this)">Modifier</button>
+                
+
+
+                 {% if not utilisateur.is_admin %}
+                    <button type="button" class="btn-asadi danger"
+                            data-id="{{ utilisateur.id }}"
+                            data-name="{{ utilisateur.prenom }} {{ utilisateur.nom }}">
+                        Supprimer
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- page d'acceuil -->
+        <div id="aucun-profil" class="user-profile1">
+            <p>Sélectionnez un utilisateur pour voir son profil.</p>
+        </div>
+
+
+        <!-- Div pour les stats -->
+        <div id="stats-container" class="user-profile2" style="display:none;">
+            <h2 class="stats-title">Statistiques du site</h2>
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <h3>Total Utilisateurs</h3>
+                    <p>{{ total_users }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Administrateurs</h3>
+                    <p>{{ total_admins }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Inscrits Cette Semaine</h3>
+                    <p>{{ nb_inscrit_semaine }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Connexions Aujourd'hui</h3>
+                    <p>{{ connexions_today }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Connexions Cette Semaine</h3>
+                    <p>{{ connexions_week }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Dernier Connecté</h3>
+                    <p>
+                        {% if dernier %}
+                            {{ dernier.username }}
+                        {% else %}
+                            Aucun
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="stat-card">
+                    <h3>Niveau Moyen</h3>
+                    <p>{{ moyenne_niveau }}/20</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Meilleur Niveau</h3>
+                    <p>
+                        {% if utilisateur_niveau_max %}
+                            {{ niveau_max }} 
+                            <br>
+                            {{ utilisateur_niveau_max.username }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal d'édition utilisateur -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="window.fermerEditModal()">&times;</span>
+        <h2>Modifier l'utilisateur</h2>
+        <form id="edit-form" method="post" action="{% url 'modifier_utilisateur' 0 %}">
+            {% csrf_token %}
+            <input type="hidden" id="modal-user-id" name="user_id" value="">
+            
+            <div class="form-group">
+                <label for="edit-username">Nom d'utilisateur</label>
+                <input type="text" id="edit-username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-prenom">Prénom</label>
+                <input type="text" id="edit-prenom" name="prenom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-nom">Nom</label>
+                <input type="text" id="edit-nom" name="nom" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-email">Email</label>
+                <input type="email" id="edit-email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="edit-niveau">Niveau (0-20)</label>
+                <input type="number" id="edit-niveau" name="niveau" min="0" max="20" required>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" onclick="window.fermerEditModal()" class="btn-cancel">Annuler</button>
+                <button type="submit" class="btn-asadi">Enregistrer</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'js/liste_utilisateurs.js' %}"></script>
+{% endblock %}

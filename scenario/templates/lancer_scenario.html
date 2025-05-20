@@ -1,0 +1,70 @@
+{% extends 'base_prompt.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="new-prompt-btn">
+        <a href="{% url 'prompt' %}" class="back-link">← Retour</a>
+    </div>
+    <div class="comment" id="prompt-comment">
+        <div id="chat-scroll" class="message-wrapper">
+            <div class="message bot-message">
+                <p><strong>Contexte :</strong> {{ scenario.contexte }}</p>
+            </div>
+            {% for reponse in reponses_existantes %}
+                <div class="message bot-message">
+                    <p><strong>Question :</strong> {{ reponse.question_reponse.question }}</p>
+                </div>
+                <div class="message user-message">
+                    <p>{{ reponse.reponse }}</p>
+                </div>
+                <div class="message bot-message">
+                    <p><strong>Réponse attendue :</strong> {{ reponse.question_reponse.reponse }}</p>
+                    {% if reponse.feedback_llm %}
+                        <p><strong>Feedback :</strong> {{ reponse.feedback_llm }}</p>
+                    {% else %}
+                        {% if reponse.reponse|lower == reponse.question_reponse.reponse|lower %}
+                            <p style="color: green;"><strong>Feedback :</strong> Bonne réponse ✅</p>
+                        {% else %}
+                            <p style="color: red;"><strong>Feedback :</strong> Réponse incorrecte ❌</p>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% if prochaine_question %}
+                <div class="message bot-message">
+                    <p><strong>Question :</strong> {{ prochaine_question.question }}</p>
+                </div>
+            {% else %}
+                <div class="message bot-message" style="margin-top: 20px;">
+                    <h3><strong>Score final :</strong> {{ score }}</h3>
+                    <p><strong>Commentaire :</strong> {{ commentaire }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if prochaine_question %}
+        <div class="bottom">
+            <form method="post" action="{% url 'lancer_scenario' scenario.id %}" style="display: flex; flex: 1; gap: 10px;">
+                {% csrf_token %}
+                <input type="hidden" name="question_id" value="{{ prochaine_question.id }}">
+                <input type="text" class="text-input" name="user_reponse" id="user-input" placeholder="Écrivez votre réponse ici..." required>
+                <button type="submit" class="send-btn" id="send-prompt">
+                    <img src="{% static 'send.png' %}" alt="Envoyer">
+                </button>
+            </form>
+        </div>
+    {% else %}
+        <div class="bottom" style="display: flex; justify-content: flex-end;">
+            <form method="post" action="{% url 'lancer_scenario' scenario.id %}?restart=true">
+                {% csrf_token %}
+                <button type="submit" class="back-link" style="padding: 10px 24px; font-size: 1.2rem; border-radius: 12px;">🔁 Rejouer ce scénario</button>
+            </form>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
