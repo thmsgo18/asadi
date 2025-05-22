@@ -114,7 +114,9 @@ def liste_utilisateurs(request):
         utilisateurs = utilisateurs.order_by('nom', 'prenom')
 
         # calcul de la moyenne des niveaux
-        moyenne_niveau = utilisateurs.aggregate(avg=Avg('niveau'))['avg'] or 0
+        moyenne_niveau_brut = utilisateurs.aggregate(avg=Avg('niveau'))['avg'] or 0
+        # Formatage avec un seul chiffre après la virgule
+        moyenne_niveau = round(moyenne_niveau_brut, 1)
        
         
         today = now().date()
